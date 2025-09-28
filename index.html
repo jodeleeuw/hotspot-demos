@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<head>
+  <script src="https://unpkg.com/jspsych@8"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-button-response"></script>
+  <script src="https://unpkg.com/@jspsych-contrib/plugin-image-hotspots"></script>
+  <script src="https://unpkg.com/@jspsych-contrib/plugin-video-hotspots"></script>
+  <link
+    href="https://unpkg.com/jspsych@8/css/jspsych.css"
+    rel="stylesheet"
+    type="text/css"
+  />
+</head>
+<body></body>
+<script>
+
+  const jsPsych = initJsPsych();
+
+  const intro = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `<p>This is a demo of the image-hotspots and video-hotspots plugins.</p>
+      <p>First you'll see the image-hotspots plugin, which allows you to define clickable areas on an image.</p>
+      <p>After that, you'll see the video-hotspots plugin, which allows you to define clickable areas that appear on the last frame of the video.</p>
+      <p>Click "Begin" to start the demo.</p>`,
+    choices: ["Begin"],
+  };
+
+  const hotspotTrial = {
+    type: jsPsychImageHotspots,
+    stimulus: "test-image.svg",
+    hotspots: [
+      {
+        id: "red_rectangle",
+        x: 50,
+        y: 60,
+        width: 120,
+        height: 80,
+      },
+      {
+        id: "blue_rectangle",
+        x: 230,
+        y: 60,
+        width: 120,
+        height: 80,
+      },
+      {
+        id: "green_rectangle",
+        x: 50,
+        y: 180,
+        width: 120,
+        height: 80,
+      },
+      {
+        id: "yellow_rectangle",
+        x: 230,
+        y: 180,
+        width: 120,
+        height: 80,
+      },
+    ],
+  };
+
+  const videoHotspotTrial = {
+    type: jsPsychVideoHotspots,
+    stimulus: "demo kid clip.mp4",
+    hotspots: [
+      {
+        id: "left_square",
+        x: 78,
+        y: 140,
+        width: 171,
+        height: 171,
+      },
+      {
+        id: "center_square",
+        x: 315,
+        y: 140,
+        width: 171,
+        height: 171,
+      },
+      {
+        id: "right_square",
+        x: 552,
+        y: 140,
+        width: 171,
+        height: 171,
+      },
+    ],
+    hotspot_highlight_css:
+      "background-color: rgba(0, 255, 0, 0.5); border: 3px solid green; border-radius: 8px; box-shadow: 0 0 15px rgba(0, 255, 0, 0.7);",
+  };
+
+  const timeline = [intro, hotspotTrial, videoHotspotTrial];
+
+  jsPsych.run(timeline);
+</script>
